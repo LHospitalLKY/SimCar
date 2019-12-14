@@ -1,0 +1,11 @@
+add_library(${PROJECT_NAME}_backend
+    vertex.cc
+    edge.cc
+    problem.cc
+)
+add_executable(testCurveFitting
+    CurveFitting_LM_TEST.cc
+)
+target_link_libraries(testCurveFitting 
+    ${PROJECT_NAME}_backend
+)
