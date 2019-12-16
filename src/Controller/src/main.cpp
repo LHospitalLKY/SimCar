@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <ros/ros.h>
+#include <std_msgs/Int32.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Bool.h>
 #include <Controller/master_control.h>
@@ -22,7 +23,8 @@ public:
         is_stop_ = 0;
         count = 0;
         //Topic you want to publish  
-        pub_ = n_.advertise<Controller::master_control>("/angle_pub", 1000);  
+        pub_servo_ = n_.advertise<std_msgs::Int32>("/angle_pub", 1000);  
+        pub_speed_ = n_.advertise<std_msgs::Int32>("/speed_pub", 1000);
 
         //Topic1 you want to subscribe  
         sub_ = n_.subscribe("offset_from_lanecenter", 10, &SubscribeAndPublish::callback1, this); 
@@ -45,14 +47,17 @@ public:
         ROS_INFO("Steering Angle: [%f]", msg1 -> data); 
         double angle = pid_ -> compute(msg1 -> data);
         ctrl_msg_.servo_ang = (int32_t)angle;
-        ctrl_msg_.speed = 0.25;
+        ctrl_msg_.speed = 1;
         // 如果is_stop_ == 0，则让小车停止行动
         if(is_stop_ == 1) {
             ctrl_msg_.servo_ang = 0;
-            ctrl_msg_.speed = 0.0;
+            ctrl_msg_.speed = 0;
         }
-        pub_.publish(ctrl_msg_);
-        ROS_INFO("angle: %d, speed: %f", ctrl_msg_.servo_ang, ctrl_msg_.speed); 
+        servo_.data = (int32_t)ctrl_msg_.servo_ang;
+        speed_.data = (int32_t)ctrl_msg_.speed;
+        pub_servo_.publish(servo_);
+        pub_speed_.publish(speed_);
+        ROS_INFO("angle: %d, speed: %d", (int32_t)ctrl_msg_.servo_ang, (int32_t)ctrl_msg_.speed); 
         ++count; 
     }  
     // TODO: 障碍物识别、交通灯识别的预留回调函数
@@ -60,11 +65,14 @@ public:
 
 private:  
     ros::NodeHandle n_;   
-    ros::Publisher pub_;  
+    ros::Publisher pub_servo_;
+    ros::Publisher pub_speed_;  
     ros::Subscriber sub_;
     ros::Subscriber sub2_;
     // TODO: 将这个msg换掉，添加speed信息 
     Controller::master_control ctrl_msg_;
+    std_msgs::Int32 servo_;
+    std_msgs::Int32 speed_;
     int count; 
 
     // 是否停止的flag

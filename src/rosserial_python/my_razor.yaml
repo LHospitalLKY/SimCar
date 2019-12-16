@@ -1,0 +1,4 @@
+## USB port
+port: /dev/ttyACM0
+
+

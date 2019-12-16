@@ -41,6 +41,8 @@ int main(int argc, char *argv[]) {
 	}
 	else if(type == "camera") {
 		// TODO: 补充完整
+        int camera_num = conf.lookup("camera_num");
+        cap.open(camera_num);
 	}
 
     double err = 0;
@@ -50,9 +52,18 @@ int main(int argc, char *argv[]) {
 	{
 		// 读取摄像头
 		cap >> vedio_frame;
+        if(vedio_frame.empty()) {
+            std::cout << "Vedio finished!" << std::endl;
+            break;
+        }
 		cv::resize(vedio_frame, resize_frame, cv::Size(cols, rows));
 		// std::cout << vedio_frame.size() << std::endl;
 		// 处理图像
+
+        // 显示图像
+        // cv::imshow("vedio", resize_frame);
+        // cv::waitKey(10);
+
 		image_handle.setImage(&resize_frame);
 		// cv::imshow("origin", resize_frame);
 		cv::Mat distorted_lane = image_handle.handleImage();
