@@ -193,9 +193,9 @@ bool LaneFitting::findLane(cv::Mat image_pres) {
     }
     
     // 查看有多少个点
-    std::cout << "<------Loop finished!-----_>\n";
-    std::cout << "Num of left lane points: " << left_x_.size() << " " << left_y_.size() << " ";
-    std::cout << "Num of right lane points: " << right_x_.size() << " " << right_y_.size() << std::endl;
+    // std::cout << "<------Loop finished!-----_>\n";
+    // std::cout << "Num of left lane points: " << left_x_.size() << " " << left_y_.size() << " ";
+    // std::cout << "Num of right lane points: " << right_x_.size() << " " << right_y_.size() << std::endl;
 
     // 若有一边没有找到点
     if(left_x_.size() != 0 && right_x_.size() == 0) {
@@ -300,12 +300,12 @@ double LaneFitting::laneFitting(cv::Mat image_pres) {
         }
     }
 
-    std::cout << "left lane: " << "\n";
-    std::cout << left_abc_image_[0] << " " << left_abc_image_[1] << " " << left_abc_image_[2] << "\n";
+    // std::cout << "left lane: " << "\n";
+    // std::cout << left_abc_image_[0] << " " << left_abc_image_[1] << " " << left_abc_image_[2] << "\n";
     // std::cout << left_abc_world_[0] << " " << left_abc_world_[1] << " " << left_abc_world_[2] << "\n";
 
-    std::cout << "right lane: " << "\n";
-    std::cout << right_abc_image_[0] << " " << right_abc_image_[1] << " " << right_abc_image_[2] << "\n";
+    // std::cout << "right lane: " << "\n";
+    // std::cout << right_abc_image_[0] << " " << right_abc_image_[1] << " " << right_abc_image_[2] << "\n";
     // std::cout << right_abc_world_[0] << " " << right_abc_world_[1] << " " << right_abc_world_[2] << "\n";
      
     // 4. 计算曲率、角度和中心偏移量
@@ -323,7 +323,7 @@ double LaneFitting::laneFitting(cv::Mat image_pres) {
     distance_from_center_ = vhe_cen_pos - lane_cen_pose;
 
     // TODO: Debug之后删除
-    std::cout << "distance_from_center_" << distance_from_center_ << std::endl;
+    // std::cout << "distance_from_center_" << distance_from_center_ << std::endl;
 
     return distance_from_center_;
 }

@@ -14,12 +14,12 @@ bool QuadFitting::solve(std::vector<double> &abc) {
     GradientDesent gd(parameters, 3, 1, GN);
 
     for(int i = 0; i < x_ -> size(); i++) {
-        std::cout << "x, y: " << (*x_)[i] << " " << (*y_)[i];
+        // std::cout << "x, y: " << (*x_)[i] << " " << (*y_)[i];
         constants << (*y_)[i], (*x_)[i];
-        std::cout << "Constant: " << constants;
+        // std::cout << "Constant: " << constants;
         cost_function = new Quad_CostFunction(&parameters, &residuals, 3, 1, &constants, 2);
 
-        std::cout << "constant in cost_function: " << cost_function -> constants_;
+        // std::cout << "constant in cost_function: " << cost_function -> constants_;
         // cost_vector.push_back(cost_function);
         residual_block = new ResidualFunction(cost_function, 0);
         

@@ -27,7 +27,7 @@ void GradientDesent::solve() {
     }
     if(method_ == GN) {
         // Gauss-Newton法
-        std::cout << "Begin to optimize~!";
+        // std::cout << "Begin to optimize~!";
         double lastCost = Cost_;
         for(int iter = 0; iter < iteration_; iter++) {
             // Hessian矩阵和Bias清零
@@ -67,10 +67,10 @@ void GradientDesent::solve() {
             }
 
             lastCost = Cost_;
-            std::cout << "params in " << iter << "iterate: \n" << params_ << std::endl;
+            // std::cout << "params in " << iter << "iterate: \n" << params_ << std::endl;
         }
         
-        std::cout << "Final result: \n" << params_ << std::endl;
+        // std::cout << "Final result: \n" << params_ << std::endl;
 
         return;
     }
