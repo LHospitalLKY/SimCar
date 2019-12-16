@@ -6,7 +6,7 @@
 
 #include "CostFunction.h"
 #include <eigen3/Eigen/Eigen>
-#include <glog/logging.h>
+// #include <glog/logging.h>
 
 #define RE_LINEAR 0
 #define CAUCHY 1

@@ -7,7 +7,7 @@
 #include "ResidualFunction.h"
 
 #include <vector>
-#include <glog/logging.h>
+// #include <glog/logging.h>
 #include <eigen3/Eigen/Eigen>
 
 /**
