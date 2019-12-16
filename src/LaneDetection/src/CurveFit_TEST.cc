@@ -1,5 +1,6 @@
-#include <bits/stdc++.h>
 #include "../include/CurveFit.h"
+
+#include <bits/stdc++.h>
 
 int main()
 {
@@ -26,7 +27,7 @@ int main()
 
     std::vector<double> abc;
     QuadFitting qf(&X, &Y);
-    qf.solve(&abc);
+    qf.solve(abc);
 
     std::cout << "abc: " << abc[0] << " ";
     std::cout << abc[1] << " ";

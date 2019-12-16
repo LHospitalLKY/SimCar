@@ -21,6 +21,7 @@ include_directories(${OpenCV_INCLUDE_DIR})
 
 include_directories(
   /usr/include/eigen3
+  /usr/local/include/eigen3
 )
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -147,8 +148,8 @@ add_library(lanefitting
     src/CurveFit.cc
     src/LaneFitting.cc
 )
-target_link_libraries(imagehandle
-    ${PROJECT_NAME}_backend
+target_link_libraries(lanefitting
+    Quad_GradientDesent
 )
 #6.add executable file，添加要编译的可执行文件
 add_executable(LaneDetection_TEST
@@ -156,7 +157,7 @@ add_executable(LaneDetection_TEST
 )
 target_link_libraries(LaneDetection_TEST
     ${OpenCV_LIBS}
-    ${PROJECT_NAME}_backend
+    Quad_GradientDesent
     # libopencv_highgui.so
     imagehandle
     lanefitting
@@ -175,7 +176,7 @@ add_executable(testQuadFitting
     src/CurveFit_TEST.cc
 )
 target_link_libraries(testQuadFitting
-    ${PROJECT_NAME}_backend
+Quad_GradientDesent
 )
 
 add_executable(testConfig
@@ -183,7 +184,7 @@ add_executable(testConfig
 )
 target_link_libraries(testConfig
     ${OpenCV_LIBS}
-    ${PROJECT_NAME}_backend
+    Quad_GradientDesent
     libconfig++.so
     imagehandle
     lanefitting
@@ -195,7 +196,7 @@ add_executable(${PROJECT_NAME}_node
 target_link_libraries(${PROJECT_NAME}_node
     ${catkin_LIBRARIES}
     ${OpenCV_LIBS}
-    ${PROJECT_NAME}_backend
+    Quad_GradientDesent
     libconfig++.so
     imagehandle
     lanefitting

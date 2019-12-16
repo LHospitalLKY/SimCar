@@ -1,11 +1,22 @@
-add_library(${PROJECT_NAME}_backend
-    vertex.cc
-    edge.cc
-    problem.cc
+find_package(OpenCV 3.4 REQUIRED)
+
+add_library(Quad_GradientDesent
+    include/CostFunction.h
+    include/Quad_CostFunction.h
+    include/GradientDesent.h
+    include/ResidualFunction.h
+    src/ResidualFunction.cpp
+    src/GradientDesent.cpp
+    src/Quad_CostFunction.cc
 )
-add_executable(testCurveFitting
-    CurveFitting_LM_TEST.cc
+target_link_libraries(Quad_GradientDesent
+    ${OpenCV_LIBS}
 )
-target_link_libraries(testCurveFitting 
-    ${PROJECT_NAME}_backend
+
+add_executable(Quad_CostFunction_TEST
+    src/Quad_CostFunction_TEST.cpp
+)
+target_link_libraries(Quad_CostFunction_TEST
+    Quad_GradientDesent
+    ${OpenCV_LIBS}
 )

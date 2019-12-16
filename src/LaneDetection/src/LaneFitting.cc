@@ -243,7 +243,7 @@ double LaneFitting::laneFitting(cv::Mat image_pres) {
     std::default_random_engine e;
     std::uniform_int_distribution<int> u_left(0, (int)left_x_.size());
     std::uniform_int_distribution<int> u_right(0, (int)right_y_.size());
-    for(int i = 0; i < 100; i++) {
+    for(int i = 0; i < 30; i++) {
         random_index_left.push_back(u_left(e));
         random_index_right.push_back(u_right(e));
         // std::cout << "------> index: " << random_index_left[i] << " " << random_index_right[i] << std::endl;
@@ -275,12 +275,12 @@ double LaneFitting::laneFitting(cv::Mat image_pres) {
     // 3. 拟合左右车道线
     // TODO: 在实际中，若无需可视化，则只算world中的拟合曲线就好
     QuadFitting qf_left(&left_y_short, &left_x_short);
-    qf_left.solve(&left_abc_image_);
+    qf_left.solve(left_abc_image_);
     // qf_left.set(&w_left_y_short, &w_left_x_short);
     // qf_left.solve(left_abc_world_);
     
     QuadFitting qf_right(&right_y_short, &right_x_short);
-    qf_right.solve(&right_abc_image_);
+    qf_right.solve(right_abc_image_);
     // qf_right.set(&w_right_y_short, &w_right_x_short);
     // qf_right.solve(right_abc_world_);
 
