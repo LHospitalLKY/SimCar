@@ -22,17 +22,17 @@ void PID_Controller::setPID(double kp, double kd, double ki) {
 }
 
 double PID_Controller::compute(double err_now) {
-    double E_now = -10 * err_now;
+    double E_now = 10 * err_now;
     double pid_out  = kp_*E_now + kd_*(E_now - E_prev_);
     E_prev_ = E_now;
     // 计算角度
-    double angle_out = pid_out + 90;
+    double angle_out = pid_out;
 
-    if(angle_out >= 150) {
-        angle_out = 150;
+    if(angle_out >= 45) {
+        angle_out = 45;
     }
-    if(angle_out <= 30) {
-        angle_out = 30;
+    if(angle_out <= -45) {
+        angle_out = -45;
     }
 
     return angle_out;

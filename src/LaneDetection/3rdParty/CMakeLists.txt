@@ -1,4 +1,4 @@
-find_package(OpenCV 3.4 REQUIRED)
+find_package(OpenCV REQUIRED)
 
 add_library(Quad_GradientDesent
     include/CostFunction.h

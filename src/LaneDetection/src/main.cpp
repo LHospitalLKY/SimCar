@@ -34,35 +34,43 @@ int main(int argc, char *argv[]) {
     int cols = conf.lookup("image_size.width");
 	// 读取视频或摄像头
 	cv::VideoCapture cap;
+    
 	std::string type = conf.lookup("type");
-	if(type == "vedio") {
-		std::string vedio_path = conf.lookup("test_vedio");
+	if(type == "video") {
+		std::string vedio_path = conf.lookup("test_video");
 		cap.open(vedio_path);
 	}
 	else if(type == "camera") {
 		// TODO: 补充完整
         int camera_num = conf.lookup("camera_num");
+        cap.set(cv::CAP_PROP_FRAME_WIDTH, cols);
+        cap.set(cv::CAP_PROP_FRAME_HEIGHT, rows);
         cap.open(camera_num);
 	}
 
     double err = 0;
-	cv::Mat vedio_frame;
+	cv::Mat video_frame;
 	cv::Mat resize_frame;
     while(ros::ok())
 	{
 		// 读取摄像头
-		cap >> vedio_frame;
-        if(vedio_frame.empty()) {
+		cap >> video_frame;
+        if(video_frame.empty()) {
             std::cout << "Vedio finished!" << std::endl;
             break;
         }
-		cv::resize(vedio_frame, resize_frame, cv::Size(cols, rows));
+		if(type == "video") {
+            cv::resize(video_frame, resize_frame, cv::Size(cols, rows));
+        }
+        if(type == "camera") {
+            resize_frame = video_frame.clone();
+        }
 		// std::cout << vedio_frame.size() << std::endl;
 		// 处理图像
 
         // 显示图像
         // cv::imshow("vedio", resize_frame);
-        // cv::waitKey(10);
+        // cv::waitKey(5);
 
 		image_handle.setImage(&resize_frame);
 		// cv::imshow("origin", resize_frame);
@@ -71,7 +79,7 @@ int main(int argc, char *argv[]) {
 		// cv::waitKey(0);
 		// 拟合
 		err = lane_fit.laneFitting(distorted_lane);
-		// lane_fit.showLane();
+		lane_fit.showLane();
 
 		std_msgs::Float32 msg;
 		msg.data = err;
