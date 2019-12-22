@@ -204,7 +204,7 @@ bool LaneFitting::findLane(cv::Mat image_pres) {
         // 右侧未能找到车道线
         std::cout << "No RIGHT LANE" << std::endl;
         for(int i = 0; i < left_x_.size(); i++) {
-            right_x_.push_back(column_ - left_x_[i]);
+            right_x_.push_back((column_ / 2.) + left_x_[i]);
             right_y_.push_back(left_y_[i]);
         }
     }
@@ -212,7 +212,7 @@ bool LaneFitting::findLane(cv::Mat image_pres) {
         // 左侧未能找到车道线
         std::cout << "No LEFT LANE" << std::endl;
         for(int i = 0; i < right_x_.size(); i++) {
-            left_x_.push_back(column_ - right_x_[i]);
+            left_x_.push_back(right_x_[i] - (column_ / 2.));
             left_y_.push_back(right_y_[i]);
         }
     }
@@ -320,7 +320,7 @@ double LaneFitting::laneFitting(cv::Mat image_pres) {
     // 图像底边中心为车辆当前位置
     double vhe_cen_pos = column_*lane_xm_per_pix / 2.;
     // 车道中心
-    double lane_cen_pose = lane_width_pix * lane_xm_per_pix / 2.;
+    double lane_cen_pose = (d_right + d_left) * lane_xm_per_pix / 2.;
 
     distance_from_center_ = lane_cen_pose - vhe_cen_pos;
 

@@ -23,8 +23,8 @@ public:
         is_stop_ = 0;
         count = 0;
         //Topic you want to publish  
-        pub_servo_ = n_.advertise<std_msgs::Int32>("/servo", 1000);  
-        pub_speed_ = n_.advertise<std_msgs::Int32>("/speed", 1000);
+        pub_servo_ = n_.advertise<std_msgs::Int32>("servo", 1000);  
+        pub_speed_ = n_.advertise<std_msgs::Int32>("speed", 1000);
 
         //Topic1 you want to subscribe  
         sub_ = n_.subscribe("offset_from_lanecenter", 10, &SubscribeAndPublish::callback1, this); 

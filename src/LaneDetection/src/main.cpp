@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 	ros::NodeHandle n;	//实例化节点, 节点进程句柄
 	ros::Publisher pub = n.advertise<std_msgs::Float32>("/offset_from_lanecenter", 1000);	//告诉系统要发布话题了，话题名为“str_message”，类型为std_msgs::String，缓冲队列为1000。
     
-	ros::Rate loop_rate(1000);	//设置发送数据的频率为10Hz
+	ros::Rate loop_rate(10);	//设置发送数据的频率为10Hz
     //ros::ok()返回false会停止运行，进程终止。
 	
 	// 读取配置信息
@@ -69,8 +69,8 @@ int main(int argc, char *argv[]) {
 		// 处理图像
 
         // 显示图像
-        // cv::imshow("vedio", resize_frame);
-        // cv::waitKey(5);
+        cv::imshow("vedio", resize_frame);
+        cv::waitKey(5);
 
 		image_handle.setImage(&resize_frame);
 		// cv::imshow("origin", resize_frame);
